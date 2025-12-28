@@ -1,6 +1,5 @@
-README definitivo – jobboard-backend
-
 Job Board Backend
+
 Backend de la plataforma Job Board, una API REST para gestionar ofertas de trabajo, empresas, candidatos y postulaciones, preparada para entorno de producción con Django, Django REST Framework y PostgreSQL.
 
 La API está pensada para integrarse con un frontend SPA (React + TypeScript + Tailwind) y cubrir el flujo completo: empresas publican ofertas, candidatos se registran y postulan, y un administrador puede moderar la actividad.
