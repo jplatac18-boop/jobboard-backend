@@ -4,8 +4,18 @@ import os
 
 DEBUG = False
 
-# ALLOWED_HOSTS desde entorno: "dominio1,dominio2"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+# Opción 1: Leer desde entorno (Render)
+#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+
+# Si prefieres fijarlo aquí directamente, usa en lugar de lo anterior:
+ALLOWED_HOSTS = [
+    "jobboard-backend-g8kv.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
+# Indicar a Django que confíe en el proxy de Render para HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Seguridad HTTP
 SECURE_HSTS_SECONDS = 31536000
