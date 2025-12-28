@@ -10,13 +10,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+
 from dotenv import load_dotenv
 import dj_database_url
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Cargar variables de entorno desde .env en la raíz del proyecto
 load_dotenv(BASE_DIR / ".env")
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "applications",
     "companies.apps.CompaniesConfig",
 ]
+
 AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
@@ -70,7 +71,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 ROOT_URLCONF = "jobboard_backend.urls"
 
@@ -99,17 +99,7 @@ DATABASES = {
     )
 }
 
-# DATABASES = {
-#    "default": {
- #       "ENGINE": "django.db.backends.postgresql",
-#        "NAME": os.getenv("DB_NAME", "jobboard_db"),
-#        "USER": os.getenv("DB_USER", "postgres"),
-#        "PASSWORD": os.getenv("DB_PASSWORD", ""),
-#        "HOST": os.getenv("DB_HOST", "localhost"),
-#        "PORT": os.getenv("DB_PORT", "5432"),
-#    }
-#}
-
+# AUTH PASSWORD
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -136,7 +126,9 @@ SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "users.serializers.MyTokenObtainPairSerializer",
 }
 
+# CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://aesthetic-kitsune-f8d3cf.netlify.app",
 ]
