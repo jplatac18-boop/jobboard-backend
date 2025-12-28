@@ -12,10 +12,9 @@ from companies.models import CompanyProfile
 class JobListCreateView(generics.ListCreateAPIView):
     serializer_class = JobSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ["title", "location"]  # buscar por título / ubicación
+    search_fields = ["title", "location"]
 
     def get_queryset(self):
-        # Incluimos select_related para evitar N+1 con company
         qs = Job.objects.select_related("company").filter(is_active=True).order_by(
             "-created_at"
         )
@@ -27,10 +26,8 @@ class JobListCreateView(generics.ListCreateAPIView):
             and user.is_authenticated
             and getattr(user, "role", None) == "COMPANY"
         ):
-            # Ahora Job.company apunta a CompanyProfile, no al usuario
             company = getattr(user, "company_profile", None)
             if company is None:
-                # Si por algún motivo el usuario COMPANY no tiene perfil, devolvemos vacío
                 return Job.objects.none()
             qs = qs.filter(company=company)
 
@@ -39,16 +36,15 @@ class JobListCreateView(generics.ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == "POST":
             return [permissions.IsAuthenticated(), IsCompany()]
+        # lista pública
         return [permissions.AllowAny()]
 
     def perform_create(self, serializer):
         user = self.request.user
 
-        # si la empresa está bloqueada, no publica
         if not getattr(user, "is_active", True):
             raise PermissionDenied("Tu cuenta está bloqueada por el administrador.")
 
-        # Asignar la empresa correcta (CompanyProfile) a la Job
         try:
             company = user.company_profile
         except CompanyProfile.DoesNotExist:
@@ -68,7 +64,6 @@ class JobDetailView(generics.RetrieveUpdateDestroyAPIView):
         job = self.get_object()
         user = self.request.user
 
-        # Solo la empresa dueña puede actualizar
         company = getattr(user, "company_profile", None)
         if not user.is_authenticated or company is None or job.company != company:
             raise PermissionDenied("No puedes modificar esta oferta.")

@@ -6,12 +6,11 @@ from django.conf import settings
 
 import users.views
 
-
 urlpatterns = [
     # Admin en ruta no trivial
     path("super-panel-2025/", admin.site.urls),
 
-    # Auth (todo desde users.views)
+    # Auth
     path(
         "api/auth/register/",
         users.views.RegisterView.as_view(),

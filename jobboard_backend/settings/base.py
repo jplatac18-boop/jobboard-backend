@@ -7,7 +7,6 @@ Más info:
 https://docs.djangoproject.com/en/6.0/topics/settings/
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -99,7 +98,7 @@ DATABASES = {
     )
 }
 
-# AUTH PASSWORD
+# Validadores de contraseña
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -132,3 +131,17 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://aesthetic-kitsune-f8d3cf.netlify.app",
 ]
+
+# CSP (django-csp)
+CSP_DEFAULT_SRC = ("'self'",)
+
+CSP_STYLE_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    "https://fonts.googleapis.com",
+)
+
+CSP_FONT_SRC = (
+    "'self'",
+    "https://fonts.gstatic.com",
+)
