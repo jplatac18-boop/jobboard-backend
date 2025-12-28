@@ -1,7 +1,10 @@
 from .base import *
+import os
 
 DEBUG = False
-ALLOWED_HOSTS = ["tu-dominio.com"]  # cámbialo por tu dominio real
+
+# Leer desde variable de entorno en Render
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 # 1) HSTS (solo si TODO el tráfico va por HTTPS)
 SECURE_HSTS_SECONDS = 31536000  # 1 año
