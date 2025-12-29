@@ -130,7 +130,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://aesthetic-kitsune-f8d3cf.netlify.app",
-    "https://job-board123.netlify.app",
+    "https://jobboard-frontend-lcmk.vercel.app",
 ]
 
 # CSP (django-csp)
